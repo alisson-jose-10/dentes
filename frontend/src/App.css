@@ -1,34 +1,316 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* V34 Landing Page Styles - Aesop Luxury Minimalist Design System */
+
+/* Import Google Fonts as fallback for Suisse */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+/* Root CSS Variables - Warm Neutral Palette */
+:root {
+  /* Primary Backgrounds - Warm foundation */
+  --bg-primary: #fffef2; /* Warm white (main background) */
+  --bg-secondary: #f6f5e8; /* Light warm beige (sections) */
+  --bg-subtle: #ebeade; /* Very light warm gray (borders) */
+  
+  /* Text Hierarchy - Rich contrast */
+  --text-primary: #333333; /* Main content and headings */
+  --text-secondary: #666666; /* Supporting text and descriptions */
+  --text-light: #bcbbb4; /* Captions and meta information */
+  --text-meta: #4a4a4a; /* Secondary meta data */
+  
+  /* Interactive States - Minimal emphasis */
+  --interactive-base: #333333; /* Button and link base color */
+  --interactive-hover: #000000; /* Hover and active states */
+  --focus-outline: #252525; /* Focus outline color */
+  
+  /* Borders & Separators */
+  --border-light: #bcbbb4; /* Subtle separators */
+  --border-medium: #cccccc; /* Standard borders */
+  --border-subtle: rgba(51,51,51,0.2); /* Form elements */
+  
+  /* Status Colors - Restrained approach */
+  --status-error: #ba3e2b; /* Error states (only when necessary) */
+  --status-success: #4a4a4a; /* Success (muted, not green) */
+  --status-warning: #666666; /* Warning (subtle gray) */
+  --status-info: #333333; /* Information states */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Body and Global Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Remove default center alignment from App */
+.App {
+  text-align: left; /* Override default center alignment */
 }
 
-.App-link {
-    color: #61dafb;
+/* Typography System - Exceptional Hierarchy */
+.hero-large {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.33;
+  color: var(--text-primary);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.hero-medium {
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.33;
+  color: var(--text-primary);
+}
+
+.heading-1 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.heading-2 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.heading-3 {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.body-large {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.body-regular {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.body-small {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.button-text {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.navigation-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+/* Button Overrides for Aesop Style */
+.btn-primary-custom {
+  background: transparent !important;
+  color: var(--interactive-base) !important;
+  border: 1px solid var(--interactive-base) !important;
+  border-radius: 0px !important; /* Sharp edges - no rounding */
+  padding: 19px 23px !important;
+  min-width: 210px !important;
+  height: 60px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(.645,.045,.355,1) !important;
+  text-decoration: none;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.btn-primary-custom:hover {
+  background: var(--interactive-base) !important;
+  color: var(--bg-primary) !important;
+  border-color: var(--interactive-base) !important;
+}
+
+.btn-primary-custom:active {
+  background: var(--interactive-hover) !important;
+  color: var(--bg-primary) !important;
+}
+
+/* Smooth Transitions for Interactive Elements */
+button, a, .card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Focus States */
+*:focus-visible {
+  outline: 2px solid var(--focus-outline) !important;
+  outline-offset: 4px !important;
+  border-radius: 0px;
+}
+
+/* Card Styles */
+.card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 0px; /* Sharp edges */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Container System */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* Spacing System */
+.section-padding {
+  padding: 120px 0;
+}
+
+.section-padding-small {
+  padding: 80px 0;
+}
+
+@media (max-width: 1024px) {
+  .section-padding {
+    padding: 80px 0;
+  }
+  .section-padding-small {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-padding {
+    padding: 60px 0;
+  }
+  .section-padding-small {
+    padding: 40px 0;
+  }
+}
+
+/* Loading Animation */
+.loading-dots {
+  animation: loadingDots 1s cubic-bezier(.645,.045,.355,1) infinite;
+}
+
+@keyframes loadingDots {
+  0%, 80%, 100% { 
+    opacity: 0.2; 
+  }
+  40% { 
+    opacity: 1; 
+  }
+}
+
+/* Countdown Timer Styles */
+.countdown-timer {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.countdown-unit {
+  text-align: center;
+  background: var(--bg-secondary);
+  padding: 12px 16px;
+  min-width: 60px;
+}
+
+.countdown-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Testimonial Styles */
+.testimonial-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  padding: 24px;
+  border-radius: 0px;
+  transition: all 0.2s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Progressive Enhancement */
+@supports (backdrop-filter: blur(12px)) {
+  .glass-effect {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 254, 242, 0.9);
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --border-light: #666666;
+    --interactive-base: #000000;
+  }
 }
