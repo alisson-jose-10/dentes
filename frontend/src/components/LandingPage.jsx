@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, Shield, Award, RefreshCw, Star, ChevronDown, ChevronRight } from 'lucide-react';
+import { 
+  Clock, Shield, Award, RefreshCw, Star, ChevronDown, ChevronRight,
+  TrendingUp, Users, CheckCircle, AlertCircle, Play, ArrowRight,
+  Zap, Heart, Trophy, Target, Timer, Sparkles
+} from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
 import { Badge } from './ui/badge';
+import { Progress } from './ui/progress';
 import { mockData } from '../mock';
 
 const CountdownTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(mockData.scarcity.timeLeft);
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 23,
+    minutes: 47, 
+    seconds: 32
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,77 +36,185 @@ const CountdownTimer = () => {
   }, []);
 
   return (
-    <div className="flex gap-4 justify-center">
-      <div className="text-center">
-        <div className="text-2xl font-bold text-[#333333] bg-[#f6f5e8] px-3 py-2">
-          {timeLeft.hours.toString().padStart(2, '0')}
-        </div>
-        <div className="text-xs text-[#666666]">HORAS</div>
-      </div>
-      <div className="text-center">
-        <div className="text-2xl font-bold text-[#333333] bg-[#f6f5e8] px-3 py-2">
-          {timeLeft.minutes.toString().padStart(2, '0')}
-        </div>
-        <div className="text-xs text-[#666666]">MIN</div>
-      </div>
-      <div className="text-center">
-        <div className="text-2xl font-bold text-[#333333] bg-[#f6f5e8] px-3 py-2">
-          {timeLeft.seconds.toString().padStart(2, '0')}
-        </div>
-        <div className="text-xs text-[#666666]">SEG</div>
+    <div className="flex justify-center items-center gap-2 bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-lg">
+      <Timer className="w-5 h-5" />
+      <span className="text-sm font-bold">OFERTA EXPIRA EM:</span>
+      <div className="flex gap-1 font-mono text-lg font-bold">
+        <span className="bg-black/20 px-2 py-1 rounded">{timeLeft.hours.toString().padStart(2, '0')}</span>:
+        <span className="bg-black/20 px-2 py-1 rounded">{timeLeft.minutes.toString().padStart(2, '0')}</span>:
+        <span className="bg-black/20 px-2 py-1 rounded">{timeLeft.seconds.toString().padStart(2, '0')}</span>
       </div>
     </div>
+  );
+};
+
+const UrgencyNotification = () => {
+  const [currentMessage, setCurrentMessage] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setCurrentMessage(prev => (prev + 1) % mockData.urgency.popup.messages.length);
+        setIsVisible(true);
+      }, 300);
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className={`fixed bottom-4 left-4 z-50 transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+      <div className="bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg max-w-sm">
+        <div className="flex items-center gap-2">
+          <CheckCircle className="w-4 h-4 flex-shrink-0" />
+          <p className="text-sm font-medium">
+            {mockData.urgency.popup.messages[currentMessage]}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ProductShowcase = () => {
+  const [activeImage, setActiveImage] = useState(0);
+
+  return (
+    <div className="relative">
+      {/* Main product image */}
+      <div className="aspect-square bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 mb-6 overflow-hidden">
+        <img 
+          src={mockData.hero.productImages[activeImage]}
+          alt="V34 Whitening Strips"
+          className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+        />
+        {/* Stock indicator badge */}
+        <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse">
+          RESTAM {mockData.urgency.inventory.remaining}
+        </div>
+        {/* Guarantee badge */}
+        <div className="absolute bottom-4 left-4 bg-green-600 text-white px-3 py-2 rounded-lg text-xs font-bold">
+          <Shield className="w-4 h-4 inline mr-1" />
+          GARANTIA 60 DIAS
+        </div>
+      </div>
+
+      {/* Product thumbnails */}
+      <div className="flex gap-3 justify-center">
+        {mockData.hero.productImages.map((image, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveImage(index)}
+            className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+              activeImage === index ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
+            <img src={image} alt={`Produto ${index + 1}`} className="w-full h-full object-cover" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const BeforeAfterSlider = ({ transformation }) => {
+  const [isAfter, setIsAfter] = useState(false);
+
+  return (
+    <Card className="relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+      <CardContent className="p-0">
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <img
+            src={isAfter ? transformation.afterImage : transformation.beforeImage}
+            alt={isAfter ? "Depois" : "Antes"}
+            className="w-full h-full object-cover transition-all duration-700"
+          />
+          
+          {/* Toggle button */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Button
+              onClick={() => setIsAfter(!isAfter)}
+              className="bg-white/90 hover:bg-white text-black border-2 border-black/10 rounded-full px-6 py-2 font-bold text-sm shadow-lg"
+            >
+              {isAfter ? '← VER ANTES' : 'VER DEPOIS →'}
+            </Button>
+          </div>
+
+          {/* Results indicator */}
+          <div className="absolute top-4 left-4 bg-gradient-to-r from-green-600 to-green-700 text-white px-3 py-1 rounded-full text-sm font-bold">
+            +{transformation.improvement}
+          </div>
+        </div>
+
+        <div className="p-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              {transformation.name.charAt(0)}
+            </div>
+            <div>
+              <h4 className="font-bold text-gray-900">{transformation.name}</h4>
+              <p className="text-sm text-gray-600">{transformation.location}</p>
+            </div>
+            <div className="ml-auto text-right">
+              <div className="text-sm font-bold text-green-600">{transformation.improvement}</div>
+              <div className="text-xs text-gray-500">{transformation.timeframe}</div>
+            </div>
+          </div>
+          <p className="text-gray-700 text-sm italic">"{transformation.testimonial}"</p>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
 const TestimonialCard = ({ testimonial }) => {
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className={`w-4 h-4 ${i < rating ? 'fill-[#333333] text-[#333333]' : 'text-[#bcbbb4]'}`} />
+      <Star key={i} className={`w-4 h-4 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
     ));
   };
 
   return (
-    <Card className="bg-[#fffef2] border-[#bcbbb4] hover:shadow-lg transition-all duration-200">
+    <Card className="relative overflow-hidden border-2 hover:border-blue-300 transition-all duration-300 hover:shadow-xl">
       <CardContent className="p-6">
+        {/* Verification badge */}
+        {testimonial.verified && (
+          <Badge className="absolute top-4 right-4 bg-blue-600 text-white">
+            <CheckCircle className="w-3 h-3 mr-1" />
+            VERIFICADO
+          </Badge>
+        )}
+
         <div className="flex items-center gap-4 mb-4">
           <img 
             src={testimonial.image} 
             alt={testimonial.name}
-            className="w-12 h-12 rounded-full object-cover"
+            className="w-16 h-16 rounded-full object-cover border-3 border-blue-200"
           />
-          <div>
-            <div className="font-medium text-[#333333]">{testimonial.name}</div>
-            <div className="text-sm text-[#666666]">{testimonial.location}</div>
-            {testimonial.profession && (
-              <Badge variant="outline" className="text-xs">
-                {testimonial.profession}
-              </Badge>
+          <div className="flex-1">
+            <div className="font-bold text-gray-900">{testimonial.name}</div>
+            <div className="text-sm text-gray-600">{testimonial.credentials || testimonial.location}</div>
+            {testimonial.highlight && (
+              <div className="text-xs font-bold text-blue-600 mt-1">{testimonial.highlight}</div>
             )}
           </div>
         </div>
-        <div className="flex gap-1 mb-3">
+
+        <div className="flex gap-1 mb-4">
           {renderStars(testimonial.rating)}
         </div>
-        <p className="text-[#333333] text-sm leading-relaxed">"{testimonial.text}"</p>
-      </CardContent>
-    </Card>
-  );
-};
 
-const FeatureCard = ({ feature }) => {
-  const IconComponent = {
-    Clock, Shield, Award, RefreshCw
-  }[feature.icon];
+        <blockquote className="text-gray-700 leading-relaxed mb-4">
+          "{testimonial.text}"
+        </blockquote>
 
-  return (
-    <Card className="bg-[#fffef2] border-[#bcbbb4] text-center hover:transform hover:-translate-y-1 transition-all duration-200">
-      <CardContent className="p-6">
-        <div className="mx-auto w-16 h-16 bg-[#f6f5e8] rounded-full flex items-center justify-center mb-4">
-          <IconComponent className="w-8 h-8 text-[#333333]" />
-        </div>
-        <h3 className="font-medium text-[#333333] mb-2">{feature.title}</h3>
-        <p className="text-sm text-[#666666]">{feature.description}</p>
+        {testimonial.socialProof && (
+          <div className="text-xs text-gray-500 border-t pt-3">
+            {testimonial.socialProof}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -108,206 +225,306 @@ const LandingPage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => 
-        (prev + 1) % mockData.testimonials.length
-      );
-    }, 5000);
+      setCurrentTestimonial(prev => (prev + 1) % mockData.testimonials.length);
+    }, 6000);
     return () => clearInterval(interval);
   }, []);
 
   const handlePurchase = () => {
-    // Mock purchase action - will be connected to backend later
-    alert('Redirecionando para checkout seguro...');
-  };
-
-  const scrollToOffer = () => {
-    document.getElementById('offer-section').scrollIntoView({ behavior: 'smooth' });
+    // Enhanced purchase tracking
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'purchase_intent',
+      'value': 4.99,
+      'currency': 'USD'
+    });
+    alert('🚀 Redirecionando para checkout ultra-seguro...');
   };
 
   return (
-    <div className="min-h-screen bg-[#fffef2]" style={{ fontFamily: 'Inter, sans-serif' }}>
-      {/* Urgency Bar */}
-      <div className="bg-[#333333] text-[#fffef2] py-2 px-4 text-center text-sm font-medium">
-        🔥 OFERTA RELÂMPAGO: Apenas {mockData.scarcity.stockLeft} unidades restantes - 86% OFF
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white" style={{ fontFamily: 'Inter, sans-serif' }}>
+      
+      {/* Urgency Top Bar */}
+      <div className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white py-3 px-4 text-center relative overflow-hidden">
+        <div className="animate-pulse absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        <p className="relative z-10 font-bold text-sm md:text-base">
+          🔥 OFERTA HISTÓRICA: {mockData.urgency.inventory.remaining} de {mockData.urgency.inventory.total} unidades • 
+          <span className="ml-2 bg-white/20 px-2 py-1 rounded"> {mockData.urgency.inventory.percentage}% VENDIDO</span>
+        </p>
       </div>
 
-      {/* Header */}
-      <header className="bg-[#fffef2] border-b border-[#bcbbb4] py-5 px-8 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-xl font-medium text-[#333333]">HiSmile V34</div>
-          <div className="flex items-center gap-6">
-            <span className="text-sm text-[#666666]">Garantia de 30 dias</span>
-            <span className="text-sm text-[#666666]">Frete grátis</span>
+      {/* Floating Header */}
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-200/50">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-6 h-6 text-blue-600" />
+            <span className="text-xl font-bold text-gray-900">HiSmile V34</span>
+          </div>
+          <div className="hidden md:flex items-center gap-6 text-sm">
+            <div className="flex items-center gap-1">
+              <Shield className="w-4 h-4 text-green-600" />
+              <span className="text-gray-600">Garantia 60 dias</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 text-yellow-400" />
+              <span className="text-gray-600">{mockData.socialProof.rating}/5 • {mockData.socialProof.reviews} avaliações</span>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <Badge className="bg-[#333333] text-[#fffef2] mb-6">
-                ÚLTIMA CHANCE - 86% DESCONTO
-              </Badge>
+      {/* Hero Section - Enhanced */}
+      <section className="py-16 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/30"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left Column - Copy */}
+            <div className="space-y-8">
               
-              <h1 className="text-4xl lg:text-5xl font-normal leading-tight text-[#333333] mb-6">
-                {mockData.hero.title}
-              </h1>
-              
-              <p className="text-xl text-[#666666] mb-8 leading-relaxed">
-                {mockData.hero.subtitle}
-              </p>
+              {/* Social proof banner */}
+              <div className="flex items-center gap-4 text-sm">
+                <div className="flex -space-x-2">
+                  {[1,2,3,4,5].map(i => (
+                    <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                      {String.fromCharCode(64 + i)}
+                    </div>
+                  ))}
+                </div>
+                <div className="text-gray-600">
+                  <span className="font-bold text-gray-900">{mockData.socialProof.customers}</span> clientes satisfeitos
+                </div>
+              </div>
 
-              <div className="mb-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-4xl font-bold text-[#333333]">{mockData.hero.price.current}</span>
-                  <span className="text-xl text-[#666666] line-through">{mockData.hero.price.original}</span>
-                  <Badge variant="destructive" className="bg-[#ba3e2b] text-[#fffef2]">
+              {/* Main headline */}
+              <div>
+                <Badge className="bg-gradient-to-r from-red-600 to-red-700 text-white mb-4 px-4 py-2">
+                  ⚡ ÚLTIMA CHANCE - {mockData.hero.price.savings}
+                </Badge>
+                <h1 className="text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                  {mockData.hero.headline}
+                  <br />
+                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    {mockData.hero.subheadline}
+                  </span>
+                </h1>
+                <p className="text-xl text-gray-600 mt-6 leading-relaxed">
+                  {mockData.hero.description}
+                </p>
+              </div>
+
+              {/* Pricing */}
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
+                <div className="flex items-end gap-4 mb-2">
+                  <span className="text-5xl font-black text-green-600">{mockData.hero.price.current}</span>
+                  <span className="text-2xl text-gray-500 line-through mb-2">{mockData.hero.price.original}</span>
+                  <Badge className="bg-red-600 text-white text-lg px-3 py-1 mb-2">
                     {mockData.hero.price.savings}
                   </Badge>
                 </div>
-                <p className="text-sm text-[#666666]">Oferta válida apenas hoje</p>
-              </div>
-
-              <div className="mb-8">
-                <p className="text-sm font-medium text-[#333333] mb-4">{mockData.hero.urgency}</p>
+                <p className="text-sm text-gray-600">{mockData.hero.price.perApplication} • Oferta válida hoje</p>
+                
                 <CountdownTimer />
               </div>
 
-              <ul className="space-y-3 mb-8">
+              {/* Benefits */}
+              <div className="grid grid-cols-1 gap-3">
                 {mockData.hero.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-center gap-3 text-[#333333]">
-                    <div className="w-5 h-5 bg-[#333333] rounded-full flex items-center justify-center">
-                      <div className="w-2 h-2 bg-[#fffef2] rounded-full"></div>
-                    </div>
-                    {benefit}
-                  </li>
+                  <div key={index} className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-gray-700 font-medium">{benefit}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* CTA Buttons */}
+              <div className="space-y-4">
                 <Button 
                   onClick={handlePurchase}
-                  className="bg-transparent border border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-[#fffef2] px-8 py-6 text-base font-bold min-w-[210px] h-[60px] transition-all duration-200"
-                  style={{ borderRadius: '0px' }}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-6 text-lg rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  GARANTIR MINHA OFERTA
+                  <Zap className="w-5 h-5 mr-2" />
+                  GARANTIR AGORA - APENAS {mockData.hero.price.current}
                 </Button>
-                <Button 
-                  variant="ghost"
-                  onClick={scrollToOffer}
-                  className="text-[#333333] hover:bg-[#f6f5e8] px-6 py-6 text-base"
-                >
-                  Ver mais detalhes <ChevronRight className="ml-2 w-4 h-4" />
-                </Button>
-              </div>
-
-              <p className="text-xs text-[#666666] mt-4">
-                ✅ Checkout 100% seguro • ✅ Garantia de 30 dias • ✅ Frete grátis
-              </p>
-            </div>
-
-            <div className="lg:order-first">
-              <div className="relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&h=600&fit=crop"
-                  alt="V34 Whitening Strips"
-                  className="w-full max-w-md mx-auto"
-                />
-                <div className="absolute -top-4 -right-4 bg-[#ba3e2b] text-[#fffef2] px-4 py-2 font-bold text-sm">
-                  ÚLTIMAS {mockData.scarcity.stockLeft}
+                
+                <div className="grid grid-cols-3 gap-2 text-xs text-center">
+                  <div className="flex items-center justify-center gap-1">
+                    <Shield className="w-3 h-3 text-green-600" />
+                    <span>Checkout Seguro</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-1">
+                    <RefreshCw className="w-3 h-3 text-blue-600" />
+                    <span>60 Dias Garantia</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-1">
+                    <Heart className="w-3 h-3 text-red-600" />
+                    <span>{mockData.socialProof.satisfaction} Satisfação</span>
+                  </div>
                 </div>
               </div>
+
+            </div>
+
+            {/* Right Column - Product Showcase */}
+            <div className="lg:order-last">
+              <ProductShowcase />
             </div>
           </div>
         </div>
       </section>
 
       {/* Social Proof Strip */}
-      <section className="bg-[#f6f5e8] py-8 px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[#666666] mb-4">👥 {mockData.scarcity.recentSales} pessoas compraram nas últimas 24 horas</p>
-          <div className="flex justify-center items-center gap-8 flex-wrap">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="flex">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-[#333333] text-[#333333]" />
-                ))}
+      <section className="py-8 bg-white border-y border-gray-200">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-center gap-8 flex-wrap">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900">{mockData.socialProof.customers}</div>
+              <div className="text-sm text-gray-600">Clientes Ativos</div>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1">
+                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                <span className="text-2xl font-bold text-gray-900">{mockData.socialProof.rating}</span>
               </div>
-            ))}
-            <span className="text-[#333333] font-medium">4.9/5 • 2.847 avaliações</span>
+              <div className="text-sm text-gray-600">{mockData.socialProof.reviews} avaliações</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900">{mockData.socialProof.recentOrders}</div>
+              <div className="text-sm text-gray-600">Pedidos hoje</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-900">{mockData.socialProof.satisfaction}</div>
+              <div className="text-sm text-gray-600">Taxa de satisfação</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Clinical Results */}
-      <section className="py-20 px-8" id="offer-section">
+      {/* Scientific Proof Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-normal text-[#333333] mb-6">{mockData.clinicalResults.title}</h2>
-            <p className="text-[#666666] text-lg max-w-2xl mx-auto">
-              Estudo científico com {mockData.clinicalResults.participants} participantes comprova eficácia em apenas {mockData.clinicalResults.timeframe}
-            </p>
+            <Badge className="bg-blue-600 text-white mb-4 px-4 py-2">
+              <Award className="w-4 h-4 mr-2" />
+              VALIDAÇÃO CIENTÍFICA
+            </Badge>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">{mockData.scientificProof.title}</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{mockData.scientificProof.subtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {mockData.clinicalResults.results.map((result, index) => (
-              <Card key={index} className="text-center bg-[#fffef2] border-[#bcbbb4]">
-                <CardContent className="p-8">
-                  <div className="text-4xl font-bold text-[#333333] mb-2">{result.stat}</div>
-                  <p className="text-[#666666] text-sm">{result.description}</p>
+            {mockData.scientificProof.results.map((result, index) => (
+              <Card key={index} className="relative overflow-hidden border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl">
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    {result.icon === 'TrendingUp' && <TrendingUp className="w-8 h-8 text-white" />}
+                    {result.icon === 'Clock' && <Clock className="w-8 h-8 text-white" />}
+                    {result.icon === 'Shield' && <Shield className="w-8 h-8 text-white" />}
+                    {result.icon === 'Award' && <Award className="w-8 h-8 text-white" />}
+                  </div>
+                  <div className="text-4xl font-black text-gray-900 mb-2">{result.percentage}</div>
+                  <Progress value={result.progress} className="mb-4 h-2" />
+                  <p className="text-gray-600 text-sm leading-relaxed">{result.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">{mockData.scientificProof.methodology}</p>
+          </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-20 px-8 bg-[#f6f5e8]">
+      {/* Before/After Section */}
+      <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-normal text-center text-[#333333] mb-16">
-            Por Que Escolher V34 Whitening Strips?
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {mockData.features.map((feature, index) => (
-              <FeatureCard key={index} feature={feature} />
+          <div className="text-center mb-16">
+            <Badge className="bg-green-600 text-white mb-4 px-4 py-2">
+              <Target className="w-4 h-4 mr-2" />
+              RESULTADOS REAIS
+            </Badge>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Transformações em 30 Minutos</h2>
+            <p className="text-lg text-gray-600">Veja o que nossos clientes alcançaram com o V34</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {mockData.transformations.map((transformation) => (
+              <BeforeAfterSlider key={transformation.id} transformation={transformation} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 px-8">
+      {/* Comparison Table */}
+      <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-slate-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">{mockData.comparison.title}</h2>
+            <p className="text-lg text-gray-600">{mockData.comparison.subtitle}</p>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+              <thead className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <tr>
+                  <th className="px-6 py-4 text-left font-bold">Característica</th>
+                  <th className="px-6 py-4 text-center font-bold bg-yellow-400/20">
+                    <div className="flex items-center justify-center gap-2">
+                      <Trophy className="w-5 h-5" />
+                      V34 Strips
+                    </div>
+                  </th>
+                  <th className="px-6 py-4 text-center font-bold">Concorrente A</th>
+                  <th className="px-6 py-4 text-center font-bold">Concorrente B</th>
+                </tr>
+              </thead>
+              <tbody>
+                {mockData.comparison.items.map((item, index) => (
+                  <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                    <td className="px-6 py-4 font-medium text-gray-900">{item.feature}</td>
+                    <td className="px-6 py-4 text-center bg-green-50 font-bold text-green-700">{item.v34}</td>
+                    <td className="px-6 py-4 text-center text-gray-600">{item.competitor1}</td>
+                    <td className="px-6 py-4 text-center text-gray-600">{item.competitor2}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Testimonials */}
+      <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-normal text-center text-[#333333] mb-16">
-            O Que Nossos Clientes Dizem
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {mockData.testimonials.map((testimonial) => (
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Depoimentos Verificados</h2>
+            <p className="text-lg text-gray-600">O que especialistas e clientes dizem sobre o V34</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
+            {mockData.testimonials.map((testimonial, index) => (
               <TestimonialCard key={testimonial.id} testimonial={testimonial} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20 px-8 bg-[#f6f5e8]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-normal text-center text-[#333333] mb-16">
-            Perguntas Frequentes
-          </h2>
-          
+      {/* FAQ Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-slate-50 to-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Perguntas Frequentes</h2>
+            <p className="text-lg text-gray-600">Tudo o que você precisa saber sobre o V34</p>
+          </div>
+
           <Accordion type="single" collapsible className="space-y-4">
             {mockData.faq.map((item, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-[#fffef2] border-[#bcbbb4] px-6">
-                <AccordionTrigger className="text-[#333333] font-medium hover:no-underline">
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white border-2 border-gray-200 rounded-lg px-6 hover:border-blue-300 transition-colors">
+                <AccordionTrigger className="text-left text-gray-900 font-semibold hover:no-underline py-6">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-[#666666]">
+                <AccordionContent className="text-gray-600 pb-6">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -316,56 +533,81 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 px-8 bg-[#333333] text-[#fffef2]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-normal mb-6">
-            Últimas {mockData.scarcity.stockLeft} Unidades
-          </h2>
-          <p className="text-xl text-[#bcbbb4] mb-8">
-            Esta oferta de 86% OFF não será repetida. Garante a sua agora!
-          </p>
+      {/* Final CTA Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           
+          {/* Stock indicator */}
           <div className="mb-8">
+            <div className="bg-red-600 text-white px-6 py-3 rounded-full inline-flex items-center gap-2 font-bold">
+              <AlertCircle className="w-5 h-5" />
+              ÚLTIMAS {mockData.urgency.inventory.remaining} UNIDADES EM ESTOQUE
+            </div>
+            <div className="mt-4">
+              <Progress value={mockData.urgency.inventory.percentage} className="max-w-md mx-auto h-3" />
+              <p className="text-sm mt-2 opacity-80">{mockData.urgency.inventory.percentage}% do estoque já foi vendido</p>
+            </div>
+          </div>
+
+          <h2 className="text-5xl font-black mb-6">
+            Não Perca Esta Oportunidade Única
+          </h2>
+          <p className="text-xl mb-8 opacity-90">
+            86% de desconto + garantia de 60 dias. Esta oferta histórica expira hoje às 23:59h.
+          </p>
+
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
             <CountdownTimer />
           </div>
 
-          <div className="mb-8">
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="text-5xl font-bold">{mockData.hero.price.current}</span>
-              <span className="text-2xl text-[#bcbbb4] line-through">{mockData.hero.price.original}</span>
+          <div className="space-y-6">
+            <div className="flex items-center justify-center gap-4 text-lg">
+              <span className="text-6xl font-black">{mockData.hero.price.current}</span>
+              <span className="text-3xl opacity-60 line-through">{mockData.hero.price.original}</span>
             </div>
-            <p className="text-[#bcbbb4]">Em até 12x sem juros no cartão</p>
-          </div>
+            
+            <Button 
+              onClick={handlePurchase}
+              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-black py-8 px-12 text-2xl rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+            >
+              <Sparkles className="w-6 h-6 mr-3" />
+              GARANTIR MINHA TRANSFORMAÇÃO
+              <ArrowRight className="w-6 h-6 ml-3" />
+            </Button>
 
-          <Button 
-            onClick={handlePurchase}
-            className="bg-[#fffef2] border border-[#fffef2] text-[#333333] hover:bg-transparent hover:text-[#fffef2] px-12 py-8 text-xl font-bold min-w-[300px] h-[80px] transition-all duration-200"
-            style={{ borderRadius: '0px' }}
-          >
-            GARANTIR AGORA - 86% OFF
-          </Button>
-
-          <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-            <div>✅ {mockData.trustSignals.moneyBackGuarantee}</div>
-            <div>✅ {mockData.trustSignals.freeShipping}</div>
-            <div>✅ {mockData.trustSignals.secureCheckout}</div>
-            <div>✅ {mockData.trustSignals.customerSupport}</div>
+            <div className="grid md:grid-cols-4 gap-4 mt-8 text-sm">
+              {mockData.riskReversal.benefits.map((benefit, index) => (
+                <div key={index} className="flex items-center justify-center gap-2 bg-white/10 rounded-lg py-3">
+                  <span>{benefit}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#fffef2] border-t border-[#bcbbb4] py-12 px-8">
+      <footer className="bg-gray-900 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[#666666] text-sm mb-4">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="w-6 h-6 text-blue-400" />
+            <span className="text-2xl font-bold">HiSmile V34</span>
+          </div>
+          <p className="text-gray-400 mb-4">
             © 2024 HiSmile V34. Todos os direitos reservados.
           </p>
-          <p className="text-[#bcbbb4] text-xs">
-            Este site é seguro e protegido por SSL. Seus dados estão seguros conosco.
-          </p>
+          <div className="flex items-center justify-center gap-6 text-sm text-gray-500">
+            <span>🔒 Checkout SSL Seguro</span>
+            <span>📞 Suporte 24/7</span>
+            <span>🛡️ Garantia 60 Dias</span>
+          </div>
         </div>
       </footer>
+
+      {/* Urgency Notifications */}
+      <UrgencyNotification />
+
     </div>
   );
 };
