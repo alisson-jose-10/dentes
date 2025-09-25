@@ -38,26 +38,56 @@ const CountdownTimer = ({ targetHours = 23, targetMinutes = 47, targetSeconds = 
   }, []);
 
   return (
-    <div className="flex items-center justify-center gap-3 bg-gradient-to-r from-red-700 via-red-800 to-black text-white px-8 py-6 rounded-xl shadow-2xl border-4 border-red-500 animate-pulse">
-      <Skull className="w-8 h-8 animate-bounce text-red-300" />
-      <span className="text-xl font-black">SUA ÚLTIMA CHANCE EXPIRA EM:</span>
-      <div className="flex gap-2">
-        <div className="bg-black/50 px-4 py-3 rounded-lg text-center border-2 border-red-500">
-          <div className="text-3xl font-black text-red-300">{timeLeft.hours.toString().padStart(2, '0')}</div>
-          <div className="text-xs">HORAS</div>
+    <div className="bg-gradient-to-r from-red-700 via-red-800 to-black text-white px-3 sm:px-6 py-4 sm:py-6 rounded-lg sm:rounded-xl shadow-2xl border-2 sm:border-4 border-red-500 animate-pulse">
+      {/* Mobile Layout */}
+      <div className="block sm:hidden">
+        <div className="text-center mb-3">
+          <div className="flex items-center justify-center gap-1 mb-2">
+            <Skull className="w-4 h-4 animate-bounce text-red-300" />
+            <span className="text-xs font-black">EXPIRA EM:</span>
+            <AlertTriangle className="w-4 h-4 animate-bounce text-red-300" />
+          </div>
         </div>
-        <div className="text-4xl font-bold text-red-300">:</div>
-        <div className="bg-black/50 px-4 py-3 rounded-lg text-center border-2 border-red-500">
-          <div className="text-3xl font-black text-red-300">{timeLeft.minutes.toString().padStart(2, '0')}</div>
-          <div className="text-xs">MIN</div>
-        </div>
-        <div className="text-4xl font-bold text-red-300">:</div>
-        <div className="bg-black/50 px-4 py-3 rounded-lg text-center border-2 border-red-500">
-          <div className="text-3xl font-black text-red-300">{timeLeft.seconds.toString().padStart(2, '0')}</div>
-          <div className="text-xs">SEG</div>
+        <div className="flex justify-center gap-1">
+          <div className="bg-black/50 px-2 py-2 rounded border border-red-500 text-center min-w-[50px]">
+            <div className="text-lg font-black text-red-300">{timeLeft.hours.toString().padStart(2, '0')}</div>
+            <div className="text-[10px]">H</div>
+          </div>
+          <div className="text-lg font-bold text-red-300 self-center">:</div>
+          <div className="bg-black/50 px-2 py-2 rounded border border-red-500 text-center min-w-[50px]">
+            <div className="text-lg font-black text-red-300">{timeLeft.minutes.toString().padStart(2, '0')}</div>
+            <div className="text-[10px]">M</div>
+          </div>
+          <div className="text-lg font-bold text-red-300 self-center">:</div>
+          <div className="bg-black/50 px-2 py-2 rounded border border-red-500 text-center min-w-[50px]">
+            <div className="text-lg font-black text-red-300">{timeLeft.seconds.toString().padStart(2, '0')}</div>
+            <div className="text-[10px]">S</div>
+          </div>
         </div>
       </div>
-      <AlertTriangle className="w-8 h-8 animate-bounce text-red-300" />
+
+      {/* Desktop Layout */}
+      <div className="hidden sm:flex items-center justify-center gap-3">
+        <Skull className="w-8 h-8 animate-bounce text-red-300" />
+        <span className="text-xl font-black">SUA ÚLTIMA CHANCE EXPIRA EM:</span>
+        <div className="flex gap-2">
+          <div className="bg-black/50 px-4 py-3 rounded-lg text-center border-2 border-red-500">
+            <div className="text-3xl font-black text-red-300">{timeLeft.hours.toString().padStart(2, '0')}</div>
+            <div className="text-xs">HORAS</div>
+          </div>
+          <div className="text-4xl font-bold text-red-300">:</div>
+          <div className="bg-black/50 px-4 py-3 rounded-lg text-center border-2 border-red-500">
+            <div className="text-3xl font-black text-red-300">{timeLeft.minutes.toString().padStart(2, '0')}</div>
+            <div className="text-xs">MIN</div>
+          </div>
+          <div className="text-4xl font-bold text-red-300">:</div>
+          <div className="bg-black/50 px-4 py-3 rounded-lg text-center border-2 border-red-500">
+            <div className="text-3xl font-black text-red-300">{timeLeft.seconds.toString().padStart(2, '0')}</div>
+            <div className="text-xs">SEG</div>
+          </div>
+        </div>
+        <AlertTriangle className="w-8 h-8 animate-bounce text-red-300" />
+      </div>
     </div>
   );
 };
