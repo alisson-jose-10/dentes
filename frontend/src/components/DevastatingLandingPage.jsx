@@ -511,28 +511,29 @@ const DevastatingLandingPage = () => {
         </div>
       </section>
 
-      {/* NOVA SEÇÃO: O QUE VOCÊ ESTÁ PERDENDO */}
-      <section className="py-24 px-4 bg-gradient-to-br from-red-900 via-red-800 to-black text-white relative overflow-hidden">
+      {/* NOVA SEÇÃO: O QUE VOCÊ ESTÁ PERDENDO - MOBILE OPTIMIZED */}
+      <section className="py-12 sm:py-24 px-3 sm:px-4 bg-gradient-to-br from-red-900 via-red-800 to-black text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-black/40"></div>
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <Badge className="bg-red-600 text-white px-6 py-3 text-lg mb-6 animate-pulse">
-              <AlertTriangle className="w-5 h-5 mr-2" />
+          <div className="text-center mb-8 sm:mb-16">
+            <Badge className="bg-red-600 text-white px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-lg mb-4 sm:mb-6 animate-pulse">
+              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
               REALIDADE CRUEL
             </Badge>
             
-            <h2 className="text-5xl font-black text-white mb-6">
-              {devastatingData.lostOpportunities.title}
+            <h2 className="text-3xl sm:text-5xl font-black text-white mb-4 sm:mb-6 leading-tight">
+              PARE. Olhe o Que Você Está<br className="sm:hidden" /> Perdendo TODOS OS DIAS
             </h2>
-            <p className="text-2xl text-red-200 max-w-4xl mx-auto mb-8">
-              {devastatingData.lostOpportunities.subtitle}
+            <p className="text-lg sm:text-2xl text-red-200 max-w-4xl mx-auto mb-4 sm:mb-8">
+              Cada dia que passa com dentes amarelos é uma oportunidade perdida para sempre
             </p>
-            <p className="text-xl text-red-100 max-w-5xl mx-auto leading-relaxed">
-              {devastatingData.lostOpportunities.devastatingCopy}
+            <p className="text-base sm:text-xl text-red-100 max-w-5xl mx-auto leading-relaxed">
+              Enquanto você lê isto, alguém com um sorriso radiante está conseguindo o emprego que você queria, a pessoa que você desejava, o respeito que você merecia. O seu sorriso amarelo está SABOTANDO sua vida sem você perceber.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          {/* Mobile: Stack cards vertically, Desktop: Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-16">
             {devastatingData.lostOpportunities.losses.map((loss, index) => (
               <LostOpportunityCard key={index} loss={loss} />
             ))}
@@ -541,11 +542,11 @@ const DevastatingLandingPage = () => {
           <div className="text-center">
             <Button 
               onClick={handleMainPurchase}
-              className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-black py-8 px-16 text-2xl rounded-2xl hover:scale-110 transition-all duration-300 shadow-2xl"
+              className="w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-black py-6 sm:py-8 px-8 sm:px-16 text-lg sm:text-2xl rounded-xl sm:rounded-2xl hover:scale-110 transition-all duration-300 shadow-2xl min-h-[60px]"
             >
-              <Zap className="w-8 h-8 mr-3" />
-              PARAR DE SER REJEITADO PELO MEU SORRISO
-              <ArrowRight className="w-8 h-8 ml-3" />
+              <Zap className="w-6 h-6 sm:w-8 sm:h-8 mr-2 sm:mr-3" />
+              <span className="text-sm sm:text-base">PARAR DE SER REJEITADO PELO MEU SORRISO</span>
+              <ArrowRight className="w-6 h-6 sm:w-8 sm:h-8 ml-2 sm:ml-3" />
             </Button>
           </div>
         </div>
