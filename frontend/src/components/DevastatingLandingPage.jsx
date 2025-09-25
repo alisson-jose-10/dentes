@@ -821,6 +821,22 @@ const DevastatingLandingPage = () => {
 
       {/* NOTIFICAÇÕES DE URGÊNCIA */}
       <UrgencyNotification />
+
+      {/* STICKY MOBILE CTA */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white shadow-2xl border-t-4 border-red-500 sm:hidden">
+        <Button 
+          onClick={handleMainPurchase}
+          className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-black py-4 text-base rounded-xl shadow-2xl min-h-[60px] animate-pulse"
+        >
+          <Crown className="w-5 h-5 mr-2" />
+          GARANTIR AGORA - €24.99
+          <ArrowRight className="w-5 h-5 ml-2" />
+        </Button>
+        <div className="text-center mt-2">
+          <span className="text-xs text-gray-600">⏰ Restam 23 unidades • 72% OFF</span>
+        </div>
+      </div>
+
     </div>
   );
 };
