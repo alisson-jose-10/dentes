@@ -215,32 +215,32 @@ const BeforeAfterInteractiveSlider = ({ transformation }) => {
 
 const LostOpportunityCard = ({ loss }) => {
   return (
-    <Card className="relative overflow-hidden border-4 border-red-500 bg-gradient-to-br from-red-50 to-red-100 hover:shadow-2xl transition-all duration-300 hover:scale-105">
-      <CardContent className="p-8">
-        <div className="absolute -top-2 -right-2 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-          <X className="w-6 h-6 text-white font-bold" />
+    <Card className="relative overflow-hidden border-2 sm:border-4 border-red-500 bg-gradient-to-br from-red-50 to-red-100 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+      <CardContent className="p-4 sm:p-8">
+        <div className="absolute -top-1 sm:-top-2 -right-1 sm:-right-2 w-8 h-8 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center">
+          <X className="w-4 h-4 sm:w-6 sm:h-6 text-white font-bold" />
         </div>
         
-        <div className="relative aspect-video mb-6 rounded-lg overflow-hidden">
+        <div className="relative aspect-video mb-4 sm:mb-6 rounded-lg overflow-hidden">
           <img 
             src={loss.image} 
             alt={loss.title}
             className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500"
           />
           <div className="absolute inset-0 bg-red-600/40 flex items-center justify-center">
-            <div className="text-white font-black text-xl">PERDIDO!</div>
+            <div className="text-white font-black text-lg sm:text-xl">PERDIDO!</div>
           </div>
         </div>
 
         <div className="text-center mb-4">
-          <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            {loss.icon === 'Briefcase' && <Briefcase className="w-8 h-8 text-white" />}
-            {loss.icon === 'Heart' && <Heart className="w-8 h-8 text-white" />}
-            {loss.icon === 'Users' && <Users className="w-8 h-8 text-white" />}
-            {loss.icon === 'TrendingUp' && <TrendingDown className="w-8 h-8 text-white" />}
+          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+            {loss.icon === 'Briefcase' && <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 text-white" />}
+            {loss.icon === 'Heart' && <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-white" />}
+            {loss.icon === 'Users' && <Users className="w-6 h-6 sm:w-8 sm:h-8 text-white" />}
+            {loss.icon === 'TrendingUp' && <TrendingDown className="w-6 h-6 sm:w-8 sm:h-8 text-white" />}
           </div>
-          <h3 className="font-black text-xl text-gray-900 mb-3">{loss.title}</h3>
-          <p className="text-red-700 font-bold leading-tight">{loss.pain}</p>
+          <h3 className="font-black text-lg sm:text-xl text-gray-900 mb-2 sm:mb-3">{loss.title}</h3>
+          <p className="text-red-700 font-bold leading-tight text-sm sm:text-base">{loss.pain}</p>
         </div>
       </CardContent>
     </Card>
