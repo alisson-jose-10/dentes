@@ -92,31 +92,33 @@ const CountdownTimer = ({ targetHours = 23, targetMinutes = 47, targetSeconds = 
   );
 };
 
-const UrgencyNotification = () => {
-  const [currentMessage, setCurrentMessage] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+const StickyMobileCTA = ({ onClick }) => {
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setCurrentMessage(prev => (prev + 1) % emotionalData.urgency.notifications.length);
-        setIsVisible(true);
-      }, 300);
-    }, 3000);
-    
-    return () => clearInterval(interval);
+    const handleScroll = () => {
+      // Show sticky CTA after scrolling 500px
+      setIsVisible(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  if (!isVisible) return null;
+
   return (
-    <div className={`fixed bottom-6 left-6 z-50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'}`}>
-      <div className="bg-red-600 text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm border-l-8 border-red-400 animate-pulse">
-        <div className="flex items-center gap-3">
-          <Flame className="w-5 h-5 flex-shrink-0 animate-bounce" />
-          <p className="text-sm font-bold">
-            {emotionalData.urgency.notifications[currentMessage]}
-          </p>
-        </div>
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white shadow-2xl border-t-4 border-red-500 sm:hidden">
+      <Button 
+        onClick={onClick}
+        className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-black py-4 text-base rounded-xl shadow-2xl min-h-[60px] animate-pulse"
+      >
+        <Crown className="w-5 h-5 mr-2" />
+        GARANTIR AGORA - €24.99
+        <ArrowRight className="w-5 h-5 ml-2" />
+      </Button>
+      <div className="text-center mt-2">
+        <span className="text-xs text-gray-600">⏰ Restam 23 unidades • 72% OFF</span>
       </div>
     </div>
   );
