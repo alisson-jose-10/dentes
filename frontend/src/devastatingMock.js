@@ -29,25 +29,25 @@ export const devastatingData = {
         icon: "Briefcase",
         title: "Oportunidades Profissionais",
         pain: "Estudos provam: pessoas com sorrisos brancos ganham 20% mais",
-        image: devastatingData?.strategicImages?.socialProof?.[0] || "https://images.unsplash.com/photo-1758598303616-d48b6d3c284c"
+        image: "https://images.unsplash.com/photo-1758598303616-d48b6d3c284c"
       },
       {
         icon: "Heart",
         title: "Relacionamentos Amorosos",
         pain: "94% das pessoas consideram dentes brancos atraentes em um parceiro",
-        image: devastatingData?.strategicImages?.socialProof?.[1] || "https://images.unsplash.com/photo-1758710199830-a679965cdbf4"
+        image: "https://images.unsplash.com/photo-1758710199830-a679965cdbf4"
       },
       {
         icon: "Users",
         title: "Aceitação Social",
         pain: "Você evita sorrir em fotos? Seus amigos notam. Todo mundo nota.",
-        image: devastatingData?.strategicImages?.socialProof?.[2] || "https://images.pexels.com/photos/34020728/pexels-photo-34020728.jpeg"
+        image: "https://images.pexels.com/photos/34020728/pexels-photo-34020728.jpeg"
       },
       {
         icon: "TrendingUp",
         title: "Autoconfiança",
         pain: "Cada vez que você esconde o sorriso, sua autoestima morre um pouco mais",
-        image: devastatingData?.strategicImages?.socialProof?.[3] || "https://images.pexels.com/photos/34001911/pexels-photo-34001911.jpeg"
+        image: "https://images.pexels.com/photos/34001911/pexels-photo-34001911.jpeg"
       }
     ]
   },
