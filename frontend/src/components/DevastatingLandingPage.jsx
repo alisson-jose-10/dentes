@@ -359,31 +359,31 @@ const DevastatingLandingPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-red-50/30" style={{ fontFamily: 'Inter, sans-serif' }}>
       
       {/* BARRA DE URGÊNCIA SUPREMA */}
-      <div className="bg-gradient-to-r from-red-700 via-red-800 to-black text-white py-4 px-4 text-center relative overflow-hidden border-b-4 border-red-500">
+      <div className="bg-gradient-to-r from-red-700 via-red-800 to-black text-white py-2 sm:py-4 px-2 sm:px-4 text-center relative overflow-hidden border-b-2 sm:border-b-4 border-red-500">
         <div className="animate-pulse absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-        <p className="relative z-10 font-black text-lg flex items-center justify-center gap-4">
-          <Skull className="w-6 h-6 animate-bounce" />
-          ⚠️ ÚLTIMA CHAMADA: 23 UNIDADES RESTANTES • SEU SORRISO PODE MUDAR HOJE OU NUNCA MAIS ⚠️
-          <Skull className="w-6 h-6 animate-bounce" />
+        <p className="relative z-10 font-black text-sm sm:text-lg flex items-center justify-center gap-2 sm:gap-4">
+          <Skull className="w-4 h-4 sm:w-6 sm:h-6 animate-bounce flex-shrink-0" />
+          <span className="text-xs sm:text-base">⚠️ ÚLTIMA CHAMADA: 23 UNIDADES • HOJE OU NUNCA ⚠️</span>
+          <Skull className="w-4 h-4 sm:w-6 sm:h-6 animate-bounce flex-shrink-0" />
         </p>
       </div>
 
-      {/* HEADER FLUTUANTE DEVASTADOR */}
+      {/* HEADER FLUTUANTE MOBILE-OPTIMIZED */}
       <header className="sticky top-0 z-40 bg-black/95 backdrop-blur-xl border-b border-red-500/50 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center border-2 border-red-400">
-              <Skull className="w-8 h-8 text-white" />
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4 flex justify-between items-center">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center border border-red-400">
+              <Skull className="w-4 h-4 sm:w-8 sm:h-8 text-white" />
             </div>
-            <span className="text-3xl font-black text-white">HiSmile</span>
-            <Badge className="bg-red-600 text-white animate-pulse">ÚLTIMA CHANCE</Badge>
+            <span className="text-lg sm:text-3xl font-black text-white">HiSmile</span>
+            <Badge className="bg-red-600 text-white animate-pulse text-xs sm:text-sm px-1 sm:px-2 py-1">ÚLTIMA CHANCE</Badge>
           </div>
           
-          <div className="hidden md:flex items-center gap-6 text-white">
-            <div className="text-sm font-bold">⏰ 23:47:32 RESTANTE</div>
+          <div className="flex items-center gap-2 sm:gap-6 text-white">
+            <div className="text-xs sm:text-sm font-bold">⏰ <span className="hidden sm:inline">23:47:32 RESTANTE</span><span className="sm:hidden">23h</span></div>
             <div className="flex items-center gap-1">
-              <Flame className="w-4 h-4 text-red-400" />
-              <span className="text-sm font-bold">23 UNIDADES</span>
+              <Flame className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
+              <span className="text-xs sm:text-sm font-bold">23</span>
             </div>
           </div>
         </div>
