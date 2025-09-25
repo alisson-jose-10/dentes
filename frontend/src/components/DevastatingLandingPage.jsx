@@ -136,15 +136,30 @@ const BeforeAfterInteractiveSlider = ({ transformation }) => {
     setSlidePosition(Math.max(0, Math.min(100, position)));
   };
 
+  // Touch events for mobile
+  const handleTouchStart = () => setIsDragging(true);
+  const handleTouchEnd = () => setIsDragging(false);
+  
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const touch = e.touches[0];
+    const position = ((touch.clientX - rect.left) / rect.width) * 100;
+    setSlidePosition(Math.max(0, Math.min(100, position)));
+  };
+
   return (
-    <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 overflow-hidden border-4 border-yellow-400 bg-gradient-to-br from-yellow-50 to-orange-50">
+    <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 sm:hover:-translate-y-4 overflow-hidden border-2 sm:border-4 border-yellow-400 bg-gradient-to-br from-yellow-50 to-orange-50">
       <CardContent className="p-0">
         <div 
-          className="relative aspect-[4/3] overflow-hidden cursor-ew-resize"
+          className="relative aspect-[4/3] overflow-hidden cursor-ew-resize touch-pan-x"
           onMouseMove={handleMouseMove}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchMove={handleTouchMove}
         >
           <img
             src={transformation.before}
@@ -162,48 +177,49 @@ const BeforeAfterInteractiveSlider = ({ transformation }) => {
           />
 
           <div 
-            className="absolute top-0 bottom-0 w-2 bg-white shadow-2xl cursor-ew-resize border-4 border-yellow-400"
+            className="absolute top-0 bottom-0 w-1 sm:w-2 bg-white shadow-2xl cursor-ew-resize border-2 sm:border-4 border-yellow-400"
             style={{ left: `${slidePosition}%` }}
           >
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center border-4 border-yellow-400">
-              <ArrowRight className="w-6 h-6 text-yellow-600" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 sm:w-12 sm:h-12 bg-white rounded-full shadow-2xl flex items-center justify-center border-2 sm:border-4 border-yellow-400">
+              <ArrowRight className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-600" />
             </div>
           </div>
 
-          <div className="absolute top-4 left-4 bg-red-600 text-white px-4 py-2 rounded-full text-sm font-black animate-pulse">
-            😰 ANTES: CONSTRANGIMENTO
+          <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-red-600 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-black animate-pulse">
+            😰 ANTES
           </div>
-          <div className="absolute top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-full text-sm font-black animate-pulse">
-            🔥 DEPOIS: MAGNETISMO • +{transformation.improvement}
+          <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-green-600 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-black animate-pulse">
+            🔥 DEPOIS • +{transformation.improvement}
           </div>
 
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/90 text-white px-6 py-3 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-            ← ARRASTE PARA VER SUA TRANSFORMAÇÃO →
+          <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 bg-black/90 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="sm:hidden">TOQUE E ARRASTE →</span>
+            <span className="hidden sm:inline">← ARRASTE PARA VER SUA TRANSFORMAÇÃO →</span>
           </div>
         </div>
 
-        <div className="p-8 bg-gradient-to-br from-yellow-50 to-orange-50">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-white font-black text-2xl border-4 border-yellow-300">
+        <div className="p-4 sm:p-8 bg-gradient-to-br from-yellow-50 to-orange-50">
+          <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-white font-black text-lg sm:text-2xl border-2 sm:border-4 border-yellow-300">
               {transformation.name.charAt(0)}
             </div>
             <div className="flex-1">
-              <h4 className="font-black text-gray-900 text-xl">{transformation.name}</h4>
-              <p className="text-gray-700 font-bold">{transformation.location} • {transformation.timeframe}</p>
+              <h4 className="font-black text-gray-900 text-lg sm:text-xl">{transformation.name}</h4>
+              <p className="text-gray-700 font-bold text-sm sm:text-base">{transformation.location} • {transformation.timeframe}</p>
             </div>
             <div className="text-center">
-              <div className="text-lg font-black text-green-600 bg-green-100 px-4 py-2 rounded-full border-2 border-green-400">
+              <div className="text-sm sm:text-lg font-black text-green-600 bg-green-100 px-2 sm:px-4 py-1 sm:py-2 rounded-full border border-green-400">
                 +{transformation.improvement}
               </div>
             </div>
           </div>
           
-          <blockquote className="text-gray-800 italic text-lg mb-4 text-center font-semibold">
+          <blockquote className="text-gray-800 italic text-base sm:text-lg mb-3 sm:mb-4 text-center font-semibold leading-tight">
             "{transformation.quote}"
           </blockquote>
           
           <div className="text-center">
-            <Badge className="bg-gradient-to-r from-red-500 to-orange-600 text-white font-black text-lg px-6 py-3 animate-bounce">
+            <Badge className="bg-gradient-to-r from-red-500 to-orange-600 text-white font-black text-sm sm:text-lg px-3 sm:px-6 py-2 sm:py-3 animate-bounce">
               🚀 {transformation.socialImpact}
             </Badge>
           </div>
