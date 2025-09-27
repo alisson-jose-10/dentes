@@ -642,27 +642,68 @@ const DevastatingLandingPage = () => {
         </div>
       </section>
 
-      {/* NOVA SEÇÃO: BENEFÍCIOS ESPECÍFICOS */}
-      <section className="py-24 px-4 bg-gradient-to-br from-green-50 to-emerald-50">
+      {/* NOVA SEÇÃO: BENEFÍCIOS ESPECÍFICOS DO PRODUTO - MOBILE-FIRST */}
+      <section className="py-12 sm:py-24 px-3 sm:px-4 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <Badge className="bg-green-600 text-white px-6 py-3 text-lg mb-6">
-              <Sparkles className="w-5 h-5 mr-2" />
-              TRANSFORMAÇÃO COMPLETA
+          <div className="text-center mb-8 sm:mb-16">
+            <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-lg mb-4 sm:mb-6">
+              <Crown className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+              PRODUTO Nº1 MUNDIAL
             </Badge>
             
-            <h2 className="text-5xl font-black text-gray-900 mb-6">
-              {devastatingData.specificBenefits.title}
+            <h2 className="text-3xl sm:text-5xl font-black text-gray-900 mb-4 sm:mb-6 leading-tight">
+              Por Que V34 É o Produto Nº1 de<br className="sm:hidden" /> Branqueamento Dental do Mundo
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              {devastatingData.specificBenefits.subtitle}
+            <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              12 benefícios revolucionários que você não encontra em nenhum outro produto
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {devastatingData.specificBenefits.benefits.map((benefit, index) => (
-              <BenefitCard key={index} benefit={benefit} />
+          {/* Mobile: 1 column, SM: 2 columns, LG: 3 columns, XL: 4 columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-16">
+            {emotionalData.productBenefits.benefits.map((benefit, index) => (
+              <ProductBenefitCard key={index} benefit={benefit} />
             ))}
+          </div>
+
+          {/* Mobile-Optimized CTA */}
+          <div className="text-center space-y-4 sm:space-y-6">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 sm:p-8 rounded-xl border-2 border-green-200">
+              <h3 className="text-2xl sm:text-3xl font-black text-gray-900 mb-3 sm:mb-4">
+                Todos Estes Benefícios por Apenas <span className="text-green-600">€24.99</span>
+              </h3>
+              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">
+                Em clínicas você pagaria <span className="line-through text-red-600 font-bold">€2.500+</span> pelos mesmos resultados
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8 text-sm sm:text-base">
+                <div className="flex items-center justify-center gap-2 bg-white p-3 rounded-lg border">
+                  <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
+                  <span className="font-semibold">Resultados em 30min</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 bg-white p-3 rounded-lg border">
+                  <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                  <span className="font-semibold">Zero Sensibilidade</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 bg-white p-3 rounded-lg border">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                  <span className="font-semibold">Garantia 60 Dias</span>
+                </div>
+              </div>
+            </div>
+
+            <Button 
+              onClick={handleMainPurchase}
+              className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black py-6 sm:py-8 px-8 sm:px-16 text-lg sm:text-2xl rounded-xl sm:rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl min-h-[60px]"
+            >
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
+              <span className="text-sm sm:text-base">QUERO TODOS ESTES BENEFÍCIOS AGORA</span>
+              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 ml-2 sm:ml-3" />
+            </Button>
+
+            <p className="text-xs sm:text-sm text-gray-500">
+              ⏰ Oferta limitada • 🛡️ Garantia total • 🚚 Entrega expressa
+            </p>
           </div>
         </div>
       </section>
