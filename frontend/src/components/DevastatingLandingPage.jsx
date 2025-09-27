@@ -324,43 +324,56 @@ const ProductShowcaseCard = ({ product, index }) => {
   );
 };
 
-const BrutalComparisonCard = ({ comparison }) => {
+const ProductBenefitCard = ({ benefit }) => {
+  const getColorClasses = (color) => {
+    const colors = {
+      yellow: "from-yellow-500 to-orange-500 border-yellow-400",
+      green: "from-green-500 to-emerald-500 border-green-400", 
+      blue: "from-blue-500 to-blue-600 border-blue-400",
+      purple: "from-purple-500 to-purple-600 border-purple-400",
+      red: "from-red-500 to-red-600 border-red-400"
+    };
+    return colors[color] || colors.blue;
+  };
+
   return (
-    <Card className="relative overflow-hidden border-4 border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-2xl transition-all duration-300">
-      <CardContent className="p-8">
-        <div className="relative aspect-video mb-6 rounded-lg overflow-hidden">
+    <Card className="relative overflow-hidden border-2 border-gray-200 hover:border-opacity-70 bg-white hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+      <CardContent className="p-4 sm:p-6">
+        {/* Mobile-First Image */}
+        <div className="relative aspect-video mb-4 rounded-lg overflow-hidden">
           <img 
-            src={comparison.image} 
-            alt={comparison.situation}
-            className="w-full h-full object-cover"
+            src={benefit.image} 
+            alt={benefit.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent flex items-end justify-center pb-4">
-            <div className="text-white font-black text-xl">{comparison.situation}</div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-start p-3">
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r ${getColorClasses(benefit.color)} rounded-full flex items-center justify-center border-2`}>
+              {benefit.icon === 'Zap' && <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Shield' && <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Award' && <Award className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Home' && <Home className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'DollarSign' && <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Star' && <Star className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Clock' && <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Heart' && <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Users' && <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'Sparkles' && <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'RefreshCw' && <RefreshCw className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+              {benefit.icon === 'CheckCircle' && <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-red-100 p-4 rounded-lg border-2 border-red-400">
-            <h4 className="font-black text-red-800 mb-2 flex items-center gap-2">
-              <TrendingDown className="w-5 h-5" />
-              VOCÊ (Dentes Amarelos)
-            </h4>
-            <p className="text-red-700 text-sm">{comparison.youWithYellowTeeth}</p>
+        {/* Mobile-Optimized Content */}
+        <div className="text-center sm:text-left">
+          <h3 className="font-black text-lg sm:text-xl text-gray-900 mb-2 leading-tight">{benefit.title}</h3>
+          <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-3">{benefit.description}</p>
+          
+          <div className="flex justify-center sm:justify-start">
+            <Badge className={`bg-gradient-to-r ${getColorClasses(benefit.color)} text-white font-bold text-xs sm:text-sm px-3 py-1`}>
+              ⚡ {benefit.impact}
+            </Badge>
           </div>
-
-          <div className="bg-green-100 p-4 rounded-lg border-2 border-green-400">
-            <h4 className="font-black text-green-800 mb-2 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5" />
-              ELES (Dentes Brancos)
-            </h4>
-            <p className="text-green-700 text-sm">{comparison.themWithWhiteTeeth}</p>
-          </div>
-        </div>
-
-        <div className="mt-6 text-center">
-          <Badge className="bg-gradient-to-r from-red-600 to-red-800 text-white font-black text-lg px-6 py-3">
-            ⚡ RESULTADO: {comparison.result}
-          </Badge>
         </div>
       </CardContent>
     </Card>
