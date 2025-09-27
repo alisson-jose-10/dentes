@@ -251,6 +251,110 @@ export const emotionalData = {
     }
   ],
 
+  // SEÇÃO DEVASTADORA: BENEFÍCIOS ESPECÍFICOS DO PRODUTO
+  productBenefits: {
+    title: "Por Que V34 É o Produto Nº1 de Branqueamento Dental do Mundo",
+    subtitle: "12 benefícios revolucionários que você não encontra em nenhum outro produto",
+    benefits: [
+      {
+        icon: "Zap",
+        title: "Resultados em 30 Minutos",
+        description: "Enquanto outros levam semanas, V34 transforma seu sorriso em meia hora",
+        impact: "10x mais rápido que a concorrência",
+        color: "yellow",
+        image: "https://images.unsplash.com/photo-1617812191081-2a24e3f30e45"
+      },
+      {
+        icon: "Shield",
+        title: "Zero Dor, Zero Sensibilidade",
+        description: "Tecnologia PAP+ sem peróxido. Mesmo dentes sensíveis ficam confortáveis",
+        impact: "100% livre de desconforto",
+        color: "green",
+        image: "https://images.unsplash.com/photo-1654373535457-383a0a4d00f9"
+      },
+      {
+        icon: "Award",
+        title: "Aprovado por Dentistas",
+        description: "94% dos dentistas recomendam. Seguro e eficaz como tratamento de clínica",
+        impact: "Validação profissional garantida",
+        color: "blue",
+        image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99"
+      },
+      {
+        icon: "Home",
+        title: "Conveniência Total em Casa",
+        description: "Sem agendamentos, sem deslocamentos. Transformação no seu tempo",
+        impact: "Economia de 15+ horas",
+        color: "purple",
+        image: "https://images.pexels.com/photos/3762408/pexels-photo-3762408.jpeg"
+      },
+      {
+        icon: "DollarSign",
+        title: "Economia de €2000+",
+        description: "Mesmo resultado de clínicas que cobram €2500, por apenas €24.99",
+        impact: "99% de economia real",
+        color: "green",
+        image: "https://images.unsplash.com/photo-1489278353717-f64c6ee8a4d2"
+      },
+      {
+        icon: "Star",
+        title: "8 Tons Mais Branco",
+        description: "Maior branqueamento possível. Dentes de celebridade em casa",
+        impact: "Máxima transformação garantida",
+        color: "yellow",
+        image: "https://images.unsplash.com/photo-1758710199830-a679965cdbf4"
+      },
+      {
+        icon: "Clock",
+        title: "Apenas 10min Por Dia",
+        description: "Rotina simples que cabe na sua agenda. Sem complicações",
+        impact: "Facilidade extrema de uso",
+        color: "blue",
+        image: "https://images.unsplash.com/photo-1758598303616-d48b6d3c284c"
+      },
+      {
+        icon: "Heart",
+        title: "Fortalece o Esmalte",
+        description: "Não desgasta como outros métodos. Deixa dentes mais fortes",
+        impact: "Proteção + branqueamento",
+        color: "red",
+        image: "https://images.pexels.com/photos/34020728/pexels-photo-34020728.jpeg"
+      },
+      {
+        icon: "Users",
+        title: "2.1M+ Clientes Satisfeitos",
+        description: "Maior base de clientes felizes do mundo. Prova de eficácia",
+        impact: "Confiança global comprovada",
+        color: "purple",
+        image: "https://images.pexels.com/photos/34001911/pexels-photo-34001911.jpeg"
+      },
+      {
+        icon: "Sparkles",
+        title: "Tecnologia Patenteada",
+        description: "Fórmula exclusiva V34 que nenhum concorrente possui",
+        impact: "Inovação única no mercado",
+        color: "blue",
+        image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd"
+      },
+      {
+        icon: "RefreshCw",
+        title: "Resultados Duradouros",
+        description: "Branqueamento mantém por 6-12 meses com cuidados básicos",
+        impact: "Investimento de longo prazo",
+        color: "green",
+        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be"
+      },
+      {
+        icon: "CheckCircle",
+        title: "Garantia Incondicional",
+        description: "60 dias para testar. Se não funcionar, dinheiro 100% de volta",
+        impact: "Risco zero absoluto",
+        color: "green",
+        image: "https://images.unsplash.com/photo-1489278353717-f64c6ee8a4d2"
+      }
+    ]
+  },
+
   // Urgency & Scarcity
   urgency: {
     stock: 47,
