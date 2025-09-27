@@ -3,7 +3,8 @@ import {
   Play, Shield, Award, Zap, Heart, Star, Timer, TrendingUp, Users,
   CheckCircle, AlertCircle, ArrowRight, Instagram, Sparkles, Crown,
   Gift, Clock, Target, Flame, Trophy, Eye, MessageSquare, Camera,
-  Briefcase, TrendingDown, AlertTriangle, Skull, X
+  Briefcase, TrendingDown, AlertTriangle, Skull, X, Home, DollarSign,
+  RefreshCw
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
